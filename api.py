@@ -6,7 +6,7 @@ import pusher
 api_url = "http://api-plantsmartfarm.herokuapp.com/"
 headers = {"Content-Type" : "application/json"}
 
-
+pusher_client = pusher.Pusher(app_id="1225626",key="da9af6249c692cb02284",secret="480ffb7393011d5f12ce",cluster="ap3")
 
 def send_tempAndhumidity_data(temperature, humidity) :
     read_temperature_url = api_url + "temperature"
@@ -17,8 +17,13 @@ def send_tempAndhumidity_data(temperature, humidity) :
     return res.text
 
 def send_pusher_temperature(temperature, humidity) :
-        pusher_client = pusher.Pusher(app_id="1225626",key="da9af6249c692cb02284",secret="480ffb7393011d5f12ce",cluster="ap3")
-        pusher_client.trigger("my-channel","my-event",{
-            "temperature" : temperature,
-            "humidity" : humidity
-        })    
+    pusher_client.trigger("my-channel","my-event",{
+        "temperature" : temperature,
+        "humidity" : humidity
+    })
+
+def send_pusher_moisture(moisture) :
+    pusher_client.trigger("my-channel","moisture",{
+            "moisture" : moisture
+        })
+    
