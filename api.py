@@ -26,4 +26,8 @@ def send_pusher_moisture(moisture) :
     pusher_client.trigger("my-channel","moisture",{
             "moisture" : moisture
         })
-    
+
+def send_pusher_light(light) :
+    pusher_client.trigger("my-channel","light",{
+        "light" : light
+        })

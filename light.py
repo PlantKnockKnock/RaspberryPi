@@ -1,6 +1,7 @@
 import smbus
 import threading
 import time
+import api
 
 I2C_CH = 1
 BH1750_DEV_ADDR = 0x23
@@ -27,7 +28,9 @@ def readIlluminance():
 '''
 def readIlluminanceThread():
   while True:
-    print('{0} lux'.format(readIlluminance()))
+    lux = readIlluminance()
+    api.send_pusher_light(lux)
+    print('{0} lux'.format(lux))
     time.sleep(1)
 
 print('starting BH1750')
